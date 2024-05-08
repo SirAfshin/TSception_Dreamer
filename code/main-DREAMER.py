@@ -1,20 +1,21 @@
 from cross_validation import *
-from prepare_data_DEAP import *
+from prepare_data_DREAMER import *
 import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     ######## Data ########
     parser.add_argument('--dataset', type=str, default='DREAMER')
-    parser.add_argument('--data-path', type=str, default='/home/dingyi/data/deap/')
-    parser.add_argument('--subjects', type=int, default=32)
+    parser.add_argument('--data-path', type=str, default='..\\..\\PyDreamer\\')
+    parser.add_argument('--subjects', type=int, default=23) # 23 person each 18 clips
+    parser.add_argument('--clips', type=int, default=18) # 23 person each 18 clips
     parser.add_argument('--num-class', type=int, default=2, choices=[2, 3, 4])
-    parser.add_argument('--label-type', type=str, default='A', choices=['A', 'V'])
+    parser.add_argument('--label-type', type=str, default='A', choices=['A', 'V','D'])
     parser.add_argument('--segment', type=int, default=4, help='segment length in seconds')
     parser.add_argument('--trial-duration', type=int, default=60, help='trial duration in seconds')
     parser.add_argument('--overlap', type=float, default=0)
     parser.add_argument('--sampling-rate', type=int, default=128)
-    parser.add_argument('--input-shape', type=tuple, default=(1, 28, 512))
+    parser.add_argument('--input-shape', type=tuple, default=(1, 14, 25472)) # 14 channel, 25472 datapoint
     parser.add_argument('--data-format', type=str, default='raw')
     ######## Training Process ########
     parser.add_argument('--random-seed', type=int, default=2021)
@@ -39,10 +40,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     sub_to_run = np.arange(args.subjects)
+    clip_to_run = np.arange(args.clips)
+    # print(sub_to_run)
+    # print(clip_to_run)
 
+    
     pd = PrepareData(args)
-    pd.run(sub_to_run, split=True, feature=False, expand=True)
+    pd.run((sub_to_run,clip_to_run), split=True, feature=False, expand=True)
 
-    cv = CrossValidation(args)
-    seed_all(args.random_seed)
-    cv.n_fold_CV(subject=sub_to_run, fold=10, reproduce=args.reproduce)  # To do leave one trial out please set fold=40
+    # cv = CrossValidation(args)
+    # seed_all(args.random_seed)
+    # cv.n_fold_CV(subject=sub_to_run, fold=10, reproduce=args.reproduce)  # To do leave one trial out please set fold=40
