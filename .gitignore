@@ -27,5 +27,6 @@ ipython_config.py
 *.wps
 *.hdf
 *.ipynb
+*.pyc
 
 # End of https://www.toptal.com/developers/gitignore/api/text,jupyternotebooks

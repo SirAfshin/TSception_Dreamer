@@ -50,6 +50,6 @@ if __name__ == '__main__':
     # Repair Split functiom in prepare_data_DREAMER.py
     pd.run((sub_to_run,clip_to_run), split=False, feature=False, expand=True)
 
-    # cv = CrossValidation(args)
-    # seed_all(args.random_seed)
-    # cv.n_fold_CV(subject=sub_to_run, fold=10, reproduce=args.reproduce)  # To do leave one trial out please set fold=40
+    cv = CrossValidation(args)
+    seed_all(args.random_seed)
+    cv.n_fold_CV(subject=sub_to_run, fold=10, reproduce=args.reproduce)  # To do leave one trial out please set fold=40

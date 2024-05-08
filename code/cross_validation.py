@@ -160,6 +160,8 @@ class CrossValidation:
             preds_trial, acts_trial = [], []
             kf = KFold(n_splits=fold, shuffle=True)
             # data: (trial, segment, 1, chan, length) here the KFold is trial-wise
+            print('ppppppppppppppppppppppppppppppppp')
+            print(data)
             for idx_fold, (index_train, index_test) in enumerate(kf.split(data)):
 
                 data_train, label_train, data_test, label_test = self.prepare_data(
