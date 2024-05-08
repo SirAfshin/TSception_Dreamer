@@ -54,6 +54,7 @@ class PrepareData:
                     data_ = np.expand_dims(data_, axis=-3)
                 print('Data and label prepared for sub{}!'.format(sub))
                 print('data:' + str(data_.shape) + ' label:' + str(label_.shape))
+                print(f"The label: {label_}")
                 print('----------------------')
                 self.save(data_, label_, sub)
 
@@ -92,7 +93,7 @@ class PrepareData:
         eeg_data = np.array(eeg_data)
         
         print(f"Pesron{sub+1}, Clip{clip+1}",end = '\t')
-        print('data:' + str(eeg_data.shape) + ' label:' + str(label.shape))
+        print('data:' + str(eeg_data.shape) + ' label:' + str(label.shape) ,end = '\t')
 
         #   data: (1, 14, Signal_Length, 7680) 
         #   label: (1, 3)
@@ -133,6 +134,7 @@ class PrepareData:
 
 
     def label_selection(self, label):
+        # V A D
         """
         This function: 1. selects which dimension of labels to use
                        2. create binary label
@@ -144,14 +146,17 @@ class PrepareData:
         -------
         label: (trial,)
         """
-        if self.label_type == 'A':
-            label = label[:, 1]
-        elif self.label_type == 'V':
-            label = label[:, 0]
-        if self.args.num_class == 2:
-            label = np.where(label <= 5, 0, label)
-            label = np.where(label > 5, 1, label)
-            print('Binary label generated!')
+        if self.label_type == 'V':
+            label = label[0]
+        elif self.label_type == 'A':
+            label = label[1]
+        elif self.label_type == 'D':
+            label = label[2]
+            
+        # if self.args.num_class == 2:
+        #     label = np.where(label <= 5, 0, label)
+        #     label = np.where(label > 5, 1, label)
+        #     print('Binary label generated!')
         return label
 
     def save(self, data, label, sub):

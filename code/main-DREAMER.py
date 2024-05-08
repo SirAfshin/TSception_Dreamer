@@ -46,7 +46,9 @@ if __name__ == '__main__':
 
     
     pd = PrepareData(args)
-    pd.run((sub_to_run,clip_to_run), split=True, feature=False, expand=True)
+    # pd.run((sub_to_run,clip_to_run), split=True, feature=False, expand=True)
+    # Repair Split functiom in prepare_data_DREAMER.py
+    pd.run((sub_to_run,clip_to_run), split=False, feature=False, expand=True)
 
     # cv = CrossValidation(args)
     # seed_all(args.random_seed)
