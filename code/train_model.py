@@ -17,6 +17,11 @@ def train_one_epoch(data_loader, net, loss_fn, optimizer):
 
         out = net(x_batch)
         loss = loss_fn(out, y_batch)
+        # print("THis loss was done!!!!!!!!!!!!!!!")
+        # print(out.shape , y_batch.shape)
+        # print(out)
+        # print(y_batch)
+
         _, pred = torch.max(out, 1)
         pred_train.extend(pred.data.tolist())
         act_train.extend(y_batch.data.tolist())
@@ -38,7 +43,17 @@ def predict(data_loader, net, loss_fn):
                 x_batch, y_batch = x_batch.cuda(), y_batch.cuda()
 
             out = net(x_batch)
+            
+        #########################################
+            print("THe loss not working")
+            print(out.shape, y_batch.shape)
+            print(out)
+            print(y_batch)
+        ##########################################
             loss = loss_fn(out, y_batch)
+
+            print("After loss") ########################################
+
             _, pred = torch.max(out, 1)
             vl.add(loss.item())
             pred_val.extend(pred.data.tolist())
@@ -152,6 +167,9 @@ def test(args, data, label, reproduce, subject, fold):
         model.load_state_dict(torch.load(model_name_reproduce))
     else:
         model.load_state_dict(torch.load(args.load_path))
+        ###############################################################
+        print("Test is now")
+        ###############################################################
     loss, pred, act = predict(
         data_loader=test_loader, net=model, loss_fn=loss_fn
     )

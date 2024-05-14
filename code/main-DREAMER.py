@@ -1,5 +1,6 @@
 from cross_validation import *
-from prepare_data_DREAMER import *
+# from prepare_data_DREAMER import *
+from prepare_data_DREAMER2 import *
 import argparse
 
 if __name__ == '__main__':
@@ -19,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument('--data-format', type=str, default='raw')
     ######## Training Process ########
     parser.add_argument('--random-seed', type=int, default=2021)
-    parser.add_argument('--max-epoch', type=int, default=500)  
+    parser.add_argument('--max-epoch', type=int, default=32)  
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--learning-rate', type=float, default=1e-3)
     parser.add_argument('--dropout', type=float, default=0.5)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     pd = PrepareData(args)
     # pd.run((sub_to_run,clip_to_run), split=True, feature=False, expand=True)
     # Repair Split functiom in prepare_data_DREAMER.py
-    pd.run((sub_to_run,clip_to_run), split=False, feature=False, expand=True)
+    pd.run((sub_to_run,clip_to_run), split=True, feature=False, expand=True)
 
     cv = CrossValidation(args)
     seed_all(args.random_seed)

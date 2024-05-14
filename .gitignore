@@ -28,5 +28,6 @@ ipython_config.py
 *.hdf
 *.ipynb
 *.pyc
+*.sh
 
 # End of https://www.toptal.com/developers/gitignore/api/text,jupyternotebooks
